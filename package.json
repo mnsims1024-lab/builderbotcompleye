@@ -1,0 +1,18 @@
+{
+  "name": "patchwork-repair-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "An open-source AI workbench for diagnosing broken builds and drafting repairs.",
+  "type": "module",
+  "scripts": {
+    "dev": "netlify dev --port 8889",
+    "check": "node --check public/app.js"
+  },
+  "dependencies": {
+    "openai": "^5.10.2"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^4.1.4",
+    "typescript": "^5.9.3"
+  }
+}
