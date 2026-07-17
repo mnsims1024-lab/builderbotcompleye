@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="Patchwork is a free, open-source AI repair bot for diagnosing broken builds and drafting safe patches."
+    >
+    <title>Patchwork — Open-source repair bot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" type="module"></script>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Patchwork home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>PATCHWORK</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#workbench">Workbench</a>
+        <a href="#how-it-works">How it works</a>
+        <a class="source-link" href="#open-source">Open source <span>↗</span></a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> FREE · OPEN SOURCE · BUILT FOR BUILDERS</p>
+          <h1 id="hero-title">Broken build?<br><em>Let’s fix it.</em></h1>
+          <p class="lede">
+            Paste the failure. Add the context. Get a root-cause diagnosis, a focused repair plan,
+            and a patch you can inspect before touching your codebase.
+          </p>
+          <a class="primary-cta" href="#workbench">Open the workbench <span>↓</span></a>
+        </div>
+
+        <div class="hero-visual" role="img" aria-label="Decorative repair terminal illustration">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="terminal-card">
+            <div class="terminal-top">
+              <span></span><span></span><span></span>
+              <b>build.log</b>
+            </div>
+            <div class="terminal-body">
+              <p><span class="muted">14:02:17</span> Running production build…</p>
+              <p><span class="muted">14:02:21</span> <span class="error">ERROR</span> Cannot resolve module</p>
+              <p class="indent">@/components/StatusPill</p>
+              <p><span class="muted">14:02:22</span> <span class="patch">PATCH</span> alias points to /src</p>
+              <p><span class="muted">14:02:22</span> <span class="good">FIX</span> update import path</p>
+              <p class="cursor-line">$ <span class="cursor"></span></p>
+            </div>
+          </div>
+          <div class="status-stamp">ROOT CAUSE<br><strong>FOUND</strong></div>
+          <div class="spark spark-one">✦</div>
+          <div class="spark spark-two">✦</div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Supported tasks">
+        <div>
+          <span>DIAGNOSE BUILD FAILURES</span><i>✦</i><span>REPAIR CONFIG</span><i>✦</i>
+          <span>DRAFT PATCHES</span><i>✦</i><span>EXPLAIN ROOT CAUSES</span><i>✦</i>
+          <span>PLAN NEW BUILDS</span>
+        </div>
+      </section>
+
+      <section class="workbench-section" id="workbench" aria-labelledby="workbench-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow"><span></span> THE WORKBENCH</p>
+            <h2 id="workbench-title">Bring the mess.<br><em>Leave with a plan.</em></h2>
+          </div>
+          <p>Patchwork reads only what you submit. Review every suggested change before applying it.</p>
+        </div>
+
+        <div class="workbench-shell">
+          <form id="repair-form" class="repair-form">
+            <div class="mode-switch" role="radiogroup" aria-label="Task mode">
+              <label><input type="radio" name="mode" value="repair" checked><span>Repair</span></label>
+              <label><input type="radio" name="mode" value="build"><span>Build</span></label>
+              <label><input type="radio" name="mode" value="explain"><span>Explain</span></label>
+            </div>
+
+            <label class="field-label" for="stack">01 / PROJECT STACK</label>
+            <select id="stack" name="stack">
+              <option value="JavaScript / TypeScript">JavaScript / TypeScript</option>
+              <option value="Python">Python</option>
+              <option value="Go">Go</option>
+              <option value="Rust">Rust</option>
+              <option value="Ruby">Ruby</option>
+              <option value="Java / Kotlin">Java / Kotlin</option>
+              <option value="Other / mixed">Other / mixed</option>
+            </select>
+
+            <label class="field-label" for="goal">02 / WHAT SHOULD HAPPEN?</label>
+            <textarea
+              id="goal"
+              name="goal"
+              rows="3"
+              maxlength="2000"
+              placeholder="Example: The Netlify production build should complete and preserve the existing import aliases."
+              required
+            ></textarea>
+
+            <div class="field-row">
+              <label class="field-label" for="evidence">03 / PASTE THE EVIDENCE</label>
+              <button class="sample-button" type="button" id="sample-button">Use sample</button>
+            </div>
+            <textarea
+              id="evidence"
+              name="evidence"
+              class="code-input"
+              rows="13"
+              maxlength="24000"
+              spellcheck="false"
+              placeholder="Paste build logs, stack traces, config, and the smallest relevant code sample…"
+              required
+            ></textarea>
+            <p class="privacy-note"><span>◆</span> Remove secrets, tokens, personal data, and production credentials.</p>
+
+            <button class="run-button" type="submit">
+              <span class="button-idle">Diagnose &amp; repair <b>↗</b></span>
+              <span class="button-loading">Tracing the fault line<span class="loading-dots"></span></span>
+            </button>
+            <p class="form-error" id="form-error" role="alert"></p>
+          </form>
+
+          <section class="output-panel" aria-labelledby="output-title" aria-live="polite">
+            <div class="output-top">
+              <div>
+                <span class="output-light"></span>
+                <h3 id="output-title">Repair report</h3>
+              </div>
+              <button id="copy-button" type="button" disabled>Copy report</button>
+            </div>
+            <div class="empty-output" id="empty-output">
+              <div class="blueprint-icon" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <p>Your diagnosis appears here.</p>
+              <small>Clear causes. Minimal changes. Exact checks.</small>
+            </div>
+            <div class="skeleton-output" id="skeleton-output" hidden aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <article class="repair-output" id="repair-output" hidden></article>
+          </section>
+        </div>
+      </section>
+
+      <section class="principles" id="how-it-works" aria-labelledby="principles-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow"><span></span> BUILT TO BE USEFUL</p>
+            <h2 id="principles-title">No magic.<br><em>Just good engineering.</em></h2>
+          </div>
+        </div>
+        <div class="principle-grid">
+          <article><b>01</b><span class="principle-mark">⌁</span><h3>Evidence first</h3><p>The bot grounds its answer in your logs and code instead of guessing at a whole repository.</p></article>
+          <article><b>02</b><span class="principle-mark">⌘</span><h3>Smallest safe fix</h3><p>Repairs favor focused changes over rewrites, upgrades, or broad dependency churn.</p></article>
+          <article><b>03</b><span class="principle-mark">◇</span><h3>You stay in control</h3><p>Patchwork drafts. You review, edit, test, and decide what reaches your codebase.</p></article>
+        </div>
+      </section>
+
+      <section class="open-source" id="open-source">
+        <div class="license-badge">MIT<br><span>LICENSED</span></div>
+        <div>
+          <p class="eyebrow"><span></span> FOR EVERY BUILDER</p>
+          <h2>Open by design.</h2>
+          <p>Inspect it, fork it, adapt it, and make the workbench your own. Patchwork ships under the permissive MIT License.</p>
+        </div>
+        <span class="source-note">Source included <span>✓</span></span>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand footer-brand" href="#top"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>PATCHWORK</span></a>
+      <p>Repair the build. Understand the fix. Ship with confidence.</p>
+      <span>MIT © 2026</span>
+    </footer>
+  </body>
+</html>

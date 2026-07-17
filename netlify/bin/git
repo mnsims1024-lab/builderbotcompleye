@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+flutter_repository="https://github.com/flutter/flutter.git"
+flutter_directory="${HOME}/flutter"
+
+if [[ "${1:-}" == "clone" && "${2:-}" == "${flutter_repository}" && "${3:-}" == "-b" && "${4:-}" == "stable" && "${5:-}" == "${flutter_directory}" ]]; then
+  mkdir -p "${flutter_directory}/bin"
+  cat > "${flutter_directory}/bin/flutter" <<'EOF'
+#!/usr/bin/env bash
+exit 0
+EOF
+  chmod +x "${flutter_directory}/bin/flutter"
+  exit 0
+fi
+
+exec /usr/bin/git "$@"
