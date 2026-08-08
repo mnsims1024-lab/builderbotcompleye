@@ -1,0 +1,5 @@
+[build]
+publish = "netlify-validation"
+
+[build.environment]
+PATH = "/opt/build/repo/netlify-shims:/opt/buildhome/.nvm/versions/node/v24.18.0/bin:/opt/buildhome/.local/share/mise/shims:/usr/local/bin:/usr/bin:/bin"
