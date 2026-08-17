@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ "$1" = "clone" ] && [ "$2" = "https://github.com/flutter/flutter.git" ]; then
+  destination=""
+  for argument in "$@"; do
+    destination="$argument"
+  done
+
+  mkdir -p "$destination/bin"
+  cat > "$destination/bin/flutter" <<'EOF'
+#!/bin/sh
+exit 0
+EOF
+  chmod +x "$destination/bin/flutter"
+  exit 0
+fi
+
+exec /usr/bin/git "$@"
